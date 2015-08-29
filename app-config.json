@@ -1,0 +1,16 @@
+{
+    "traceur": {
+        "options": {
+            "traceurOptions": "--experimental --source-maps=inline"
+        },
+        "src": {
+            "input": "src/**/*.js",
+            "output": "dist/app.js"
+        }
+    },
+    "shell": {
+        "make_dir": {
+            "test_dir": "test/"
+        }
+    }
+}
