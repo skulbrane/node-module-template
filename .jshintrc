@@ -1,0 +1,13 @@
+{
+    "globals": {
+        "jasmine": true
+    },
+
+    "strict": true,
+    "node": true,
+    "browser": false,
+    "esnext": true,
+    "es5": false,
+    "undef": true,
+    "unused": true
+}

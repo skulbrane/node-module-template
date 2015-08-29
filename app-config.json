@@ -1,4 +1,8 @@
 {
+    "src_all_js": "src/**/*.js",
+    "lib_all_js": "lib/**/*.js",
+    "dist_all_js": "dist/**/*.js",
+
     "traceur": {
         "options": {
             "traceurOptions": "--experimental --source-maps=inline"

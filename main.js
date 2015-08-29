@@ -1,3 +1,7 @@
+/*jshint unused:false*/
+
+'use strict';
+
 var fs = require('fs');
 var path = require('path');
 var log = require('npmlog');

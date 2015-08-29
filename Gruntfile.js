@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -10,6 +12,11 @@ module.exports = function(grunt) {
             src: {
                 files: {
                     "<%= cfg.traceur.src.output %>": ["<%= cfg.traceur.src.input %>"]
+                }
+            },
+            arrow_func: {
+                files: {
+                    'dist/arrow_func.trcr.js': ['src/arrow_func.js']
                 }
             }
         },
@@ -48,6 +55,29 @@ module.exports = function(grunt) {
             verify_json: {
                 src: ['*.json']
             }
+        },
+        jshint: {
+            options: {
+                "jshintrc": ".jshintrc",
+                "extensions": "es6",
+                reporter: require('jshint-stylish')
+            },
+            all: ['Gruntfile.js', 'main.js', '<%= cfg.src_all_js %>', '<%= cfg.lib_all_js %>'],
+            src: ['<%= cfg.src_all_js %>'],
+            lib: ['<%= cfg.lib_all_js %>'],
+            with_overrides: {
+                options: {
+                    reporter: require('jshint-stylish'),
+                    esnext: false,
+                    browser: true,
+                    globals: {
+                        jQuery: true
+                    },
+                },
+                files: {
+                    src: ['Gruntfile.js', 'main.js', '<%= cfg.src_all_js %>', '<%= cfg.lib_all_js %>']
+                }
+            }
         }
     });
 
@@ -58,8 +88,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-jsonlint");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
 
-    grunt.registerTask("default", ["traceur:src", "jsonlint:verify_json"]);
+    grunt.registerTask("default", ["jsonlint:verify_json", "jshint:all", "traceur:src"]);
 
     // grunt-traceur-simple
     grunt.registerTask("build", ["traceur:src"]);
@@ -72,5 +103,11 @@ module.exports = function(grunt) {
     grunt.registerTask('make-dirs', ['shell:make_dir:'+testdir]);
 
     // grunt-jsonlint
+    grunt.registerTask('lint-json', ['jsonlint:verify_json']);
+
+    // grunt-contrib-jshint
+    grunt.registerTask('lint-js', ['jshint:all']);
+
+
 
 };
